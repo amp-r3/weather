@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: #4793ff;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+
+    &__input {
+        border-radius: 10px;
+        background: rgba(71, 147, 255, 0.2);
+        font-weight: 500;
+        max-width: 210px;
+        width: 100%;
+        padding: 9px 20px;
+        padding-right: 36px;
+
+        &::placeholder {
+            color: inherit;
+        }
+    }
+
+    &__btn {
+        background: rgba(71, 147, 255, 0.2);
+        padding: 9px;
+        border-radius: 10px;
+        position: absolute;
+        right: 0;
+    }
+}

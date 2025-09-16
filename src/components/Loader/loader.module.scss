@@ -1,0 +1,34 @@
+// Анимация вращения
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80dvh;
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  
+  background: conic-gradient(#8a78ff, #c2e9fb, #8a78ff);
+  
+  mask-image: radial-gradient(
+      farthest-side, 
+      transparent calc(100% - 7px),
+      #000 0
+  );
+  -webkit-mask-image: radial-gradient(
+      farthest-side, 
+      transparent calc(100% - 7px),
+      #000 0
+  );
+
+  animation: spin 0.5s linear infinite;
+}

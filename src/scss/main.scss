@@ -1,0 +1,54 @@
+@import url(./fonts.scss);
+
+:root {
+    --body: #fff;
+    --color: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    max-width: 1230px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    font-family: 'Montserrat';
+    background: var(--body);
+    color: var(--color);
+
+    &.active {
+        --body: #000;
+        --color: #fff;
+    }
+}
+
+input,
+textarea,
+button {
+    border: none;
+    outline: none;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background: transparent;
+}
+
+button {
+    cursor: pointer;
+}

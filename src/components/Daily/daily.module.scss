@@ -1,0 +1,85 @@
+.daily {
+    padding: 50px 0;
+
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 7px;
+    }
+
+    &__btn {
+        box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+        border-radius: 5px;
+        padding: 7px 20px;
+        font-size: 18px;
+        transition: 0.3s ease-in-out;
+
+        &:hover,
+        &.active {
+            background: #4793ff;
+            color: #fff;
+        }
+    }
+
+    &__content {
+        box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+        border-radius: 0 0 20px 20px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 20px;
+        transition: 0.3s ease-in-out;
+        transform-origin: 0 0;
+
+        &.active {
+            transform: scaleY(0);
+        }
+    }
+
+    &__item {
+        background: rgba(71, 147, 255, 0.2);
+        border-radius: 10px;
+        padding: 11px;
+        transition: 0.3s ease-in-out;
+        &:hover {
+            box-shadow: 0 3px 20px 0 rgba(147, 144, 144, 0.28);
+            transform: scale(1.03);
+        }
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    &__date {
+        font-size: 14px;
+        color: #939cb0;
+        margin-bottom: 12px;
+    }
+
+    &__icon {
+        height: 45px;
+        width: 44px;
+        object-fit: contain;
+        margin-bottom: 15px;
+    }
+
+    &__day {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    &__night,
+    &__desc {
+        font-size: 13px;
+        color: #939cb0;
+        margin-bottom: 6px;
+    }
+
+    &__desc {
+        margin-bottom: 0;
+    }
+}
