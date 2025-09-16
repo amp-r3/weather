@@ -52,3 +52,26 @@ button {
 button {
     cursor: pointer;
 }
+
+// Адаптивность для разных экранов
+
+/* Стили для планшетов и больше (экраны шире 768px) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* Стили для средних десктопов (экраны шире 992px) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Стили для больших десктопов (экраны шире 1200px) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}

@@ -83,3 +83,53 @@
         margin-bottom: 0;
     }
 }
+
+/* --- Медиа-запросы для адаптации --- */
+@media (max-width: 992px) {
+  .daily__content {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Для планшетов
+@media (max-width: 768px) {
+  .daily__content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .daily__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+// Для мобильных устройств
+@media (max-width: 576px) {
+  .daily {
+    padding: 30px 0;
+  }
+
+  .daily__nav {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .daily__btn {
+    font-size: 16px;
+    padding: 6px 18px;
+  }
+
+  .daily__content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+// Для очень маленьких экранов
+@media (max-width: 400px) {
+  .daily__content {
+    grid-template-columns: 1fr;
+  }
+}
