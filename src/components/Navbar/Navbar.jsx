@@ -1,60 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import { images } from '../../assets/image'
-import s from './navbar.module.scss'
+import { useState } from 'react';
+import { images } from '../../assets/image';
+import s from './navbar.module.scss';
 import { useDispatch } from "react-redux";
 import { getLanLon } from "../../store/features/weather.js";
+import { useTheme } from '../../hooks/useTheme.js';
+
 const Navbar = () => {
     const [query, setQuery] = useState('');
-    const [theme, setTheme] = useState('light')
-    const dispatch = useDispatch()
-    const getWeather = (event) => {
-        const text = query.trim()
-        if (event.key == 'Enter' && text) {
-            dispatch(getLanLon(text))
-        }
-    }
+    const dispatch = useDispatch();
+    const { toggleTheme } = useTheme();
 
-    const changeTheme = () => {
-        if (theme === 'light') {
-            setTheme('dark')
-        } else {
-            setTheme('light')
+    const getWeather = (event) => {
+        const text = query.trim();
+        if (event.key === 'Enter' && text) {
+            dispatch(getLanLon(text));
+            setQuery('');
         }
-    }
-    useEffect(()=>{
-        const localTheme = localStorage.getItem('theme')
-        setTheme(localTheme)
-    }, [])
-    useEffect(() => {
-        if (theme === 'light') {
-            document.body.classList.add('active')
-        } else {
-            document.body.classList.remove('active')
-        }
-        
-        localStorage.setItem('theme', theme)
-        
-    }, [theme])
+    };
     
+    const handleClear = () => {
+        setQuery('');
+    };
+
     return (
         <header className={s.header}>
-            <a href="" className={s.logo}>
-                <img src={images.logo} alt="" />
-                vue weather
+            <a href="/" className={s.logo}>
+                <img src={images.logo} alt="Weather App Logo" />
+                <span>Vue Weather</span>
             </a>
-            <div className={s.search}>
-                <img onClick={changeTheme} src={images.city} alt="" />
-                <input
-                    onKeyDown={getWeather}
-                    value={query}
-                    onChange={(event) => { setQuery(event.target.value) }}
-                    type="text" className={s.search__input} placeholder='Выбрать город'
-                />
-
-                {query && <button onClick={() => { setQuery('') }} className={s.search__btn}>x</button>}
+            
+            <div className={s.controls}>
+                <button onClick={toggleTheme} className={`${s.icon_btn} ${s.theme_switcher}`} aria-label="Toggle theme">
+                    <img src={images.city} alt="Change theme" />
+                </button>
+                
+                <div className={s.search}>
+                    <input
+                        onKeyDown={getWeather}
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        type="text" 
+                        className={s.search__input} 
+                        placeholder='Выбрать город'
+                    />
+                    
+                    {query && (
+                        <button onClick={handleClear} className={`${s.icon_btn} ${s.search__btn}`} aria-label="Clear search">
+                            <span className={s.close_icon}></span>
+                        </button>
+                    )}
+                </div>
             </div>
         </header>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;

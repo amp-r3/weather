@@ -1,0 +1,137 @@
+/* --- Стиль для карточки текущей погоды --- */
+.nowCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--surface-container);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    min-height: 250px;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px var(--shadow-color);
+    }
+}
+
+/* --- Верхний ряд: температура и иконка --- */
+.topRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.tempWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.degree {
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
+    font-weight: 500;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.day {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--on-surface);
+    margin-top: -10px;
+}
+
+.weatherIconWrapper {
+    flex-shrink: 0;
+}
+
+.weatherIcon {
+    width: clamp(90px, 25vw, 120px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.2));
+}
+
+/* --- Нижняя информация: время и город --- */
+.bottomInfo {
+    margin-top: auto;
+    /* Эффективно прижимает блок к низу */
+    padding-top: 20px;
+}
+
+.time,
+.city {
+    font-size: 1.25rem;
+    color: var(--on-surface-variant);
+    word-break: break-word;
+    /* Для переноса длинных названий городов */
+}
+
+.city {
+    margin-top: 8px;
+}
+
+/* === АДАПТАЦИЯ === */
+
+/* Планшеты */
+@media (max-width: 1000px) {
+    .degree {
+        font-size: 5rem;
+    }
+
+    .day {
+        font-size: 2rem;
+    }
+}
+
+/* Мобильные устройства (средние) */
+@media (max-width: 768px) {
+    .nowCard {
+        border-radius: 16px;
+        min-height: 220px;
+    }
+
+    .degree {
+        font-size: 4.5rem;
+    }
+
+    .day {
+        font-size: 1.75rem;
+    }
+
+    .weatherIcon {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Мобильные устройства (маленькие) - НОВЫЙ БЛОК */
+@media (max-width: 480px) {
+    .nowCard {
+        padding: 16px;
+        min-height: unset;
+        /* Убираем мин. высоту, пусть контент определяет */
+    }
+
+    .degree {
+        font-size: 4rem;
+    }
+
+    .day {
+        font-size: 1.5rem;
+    }
+
+    .weatherIcon {
+        width: 90px;
+        height: 90px;
+    }
+
+    .time,
+    .city {
+        font-size: 1.1rem;
+    }
+}

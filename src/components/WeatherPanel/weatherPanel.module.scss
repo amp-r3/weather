@@ -1,0 +1,32 @@
+.weatherPanel {
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) 1.5fr; 
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 0;
+}
+
+/* === АДАПТАЦИЯ === */
+
+/* Планшеты и ниже */
+@media (max-width: 1000px) {
+    .weatherPanel {
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* Маленькие мобильные устройства */
+@media (max-width: 480px) {
+    .weatherPanel {
+        gap: 20px;
+    }
+    .leftColumn {
+        gap: 20px;
+    }
+}

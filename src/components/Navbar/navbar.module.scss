@@ -1,67 +1,199 @@
+/* --- Цветовая палитра и переменные --- */
+:root {
+  --surface-container: #f0f3ff;
+  --on-surface: #1a1c1e;
+  --on-surface-variant: #44474f;
+  --primary: #4793ff;
+  --outline: #74777f;
+  --surface-container-highest: #e3e8f9;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --ripple-color: rgba(0, 0, 0, 0.1);
+}
+
+/* --- Настройки для темной темы --- */
+body.dark {
+  --surface-container: #1e2537;
+  --on-surface: #e3e2e6;
+  --on-surface-variant: #c4c6d0;
+  --primary: #89b8ff;
+  --outline: #8e9099;
+  --surface-container-highest: #333a4d;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --ripple-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Общие стили --- */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
 }
 
 .logo {
-    font-weight: 700;
-    font-size: 25px;
-    text-transform: uppercase;
-    color: #4793ff;
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  text-decoration: none;
+
+  font-weight: 700;
+  font-size: 25px;
+  text-transform: uppercase;
+  color: var(--primary);
+
+  img {
+    width: 35px;
+    height: 35px;
+  }
 }
 
-.search {
+.controls {
     display: flex;
     align-items: center;
-    gap: 25px;
-    position: relative;
+    gap: 15px;
+}
 
-    &__input {
-        border-radius: 10px;
-        background: rgba(71, 147, 255, 0.2);
-        font-weight: 500;
-        max-width: 210px;
-        width: 100%;
-        padding: 9px 20px;
-        padding-right: 36px;
+/* --- Стили для кнопок-иконок --- */
+.icon_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  
+  img {
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+  }
 
-        &::placeholder {
-            color: inherit;
+  // Эффект волны (Ripple)
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--ripple-color);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+  }
+
+  &:hover::after {
+    transform: translate(-50%, -50%) scale(2.2);
+    opacity: 0.5;
+  }
+  
+  &:active::after {
+    transform: translate(-50%, -50%) scale(2.2);
+    opacity: 1;
+  }
+}
+
+/* --- Поле поиска в стиле Material You --- */
+.search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: var(--surface-container);
+  border-radius: 50px;
+  min-width: 250px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 1px 3px var(--shadow-color);
+
+  &:focus-within {
+    background-color: var(--surface-container-highest);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border-color: var(--primary);
+  }
+
+  &__input {
+    width: 100%;
+    padding: 12px 20px;
+    padding-right: 45px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background: transparent;
+    color: var(--on-surface);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.3s ease;
+    
+    &::placeholder {
+      color: var(--on-surface-variant);
+      font-weight: 400;
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    right: 5px;
+    width: 32px;
+    height: 32px;
+    
+    .close_icon {
+        display: block;
+        width: 18px;
+        height: 18px;
+        position: relative;
+
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: var(--on-surface-variant);
+            border-radius: 2px;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        &::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
         }
     }
 
-    &__btn {
-        background: rgba(71, 147, 255, 0.2);
-        padding: 9px;
-        border-radius: 10px;
-        position: absolute;
-        right: 0;
+    &:hover .close_icon::before, &:hover .close_icon::after {
+        background-color: var(--on-surface);
     }
+  }
 }
 
-/* --- Медиа-запросы для адаптации --- */
 
-// Для планшетов и небольших экранов
+/* --- Медиа-запросы для адаптации --- */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
     gap: 25px;
   }
 
-  .search {
+  .controls {
     width: 100%;
     max-width: 450px;
     justify-content: center;
   }
+
+  .search {
+      width: 100%;
+  }
 }
 
-// Для мобильных телефонов
 @media (max-width: 480px) {
   .header {
     margin-bottom: 20px;
@@ -69,14 +201,10 @@
   
   .logo {
     font-size: 22px;
-    gap: 15px;
   }
-
-  .search {
-    max-width: 100%;
-
-    &__input {
-       max-width: 100%; 
-    }
+  
+  .controls {
+      flex-direction: column-reverse;
+      gap: 20px;
   }
 }

@@ -1,14 +1,56 @@
 @import url(./fonts.scss);
 
+/* --- Цветовая палитра Material You --- */
 :root {
-    --body: #fff;
-    --color: #000;
+  --body: #fdfcff;
+  --color: #1a1c1e;
+
+  /* Переменные из навбара для глобального использования */
+  --surface-container: #f0f3ff;
+  --on-surface: #1a1c1e;
+  --on-surface-variant: #44474f;
+  --primary: #4793ff;
+  --outline: #74777f;
+  --surface-container-highest: #e3e8f9;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --ripple-color: rgba(0, 0, 0, 0.1);
 }
 
+/* --- Настройки для темной темы --- */
+body.dark {
+  --body: #111318;
+  --color: #e3e2e6;
+
+  --surface-container: #1e2537;
+  --on-surface: #e3e2e6;
+  --on-surface-variant: #c4c6d0;
+  --primary: #89b8ff;
+  --outline: #8e9099;
+  --surface-container-highest: #333a4d;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --ripple-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Глобальные стили --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--body);
+    color: var(--color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 a {
@@ -16,26 +58,8 @@ a {
     color: inherit;
 }
 
-.container {
-    max-width: 1230px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
 ul {
     list-style: none;
-}
-
-body {
-    font-family: 'Montserrat';
-    background: var(--body);
-    color: var(--color);
-
-    &.active {
-        --body: #000;
-        --color: #fff;
-    }
 }
 
 input,
@@ -53,23 +77,23 @@ button {
     cursor: pointer;
 }
 
-// Адаптивность для разных экранов
+/* === АДАПТАЦИЯ КОНТЕЙНЕРА (Mobile First) === */
 
-/* Стили для планшетов и больше (экраны шире 768px) */
+/* Планшеты (≥768px) */
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
   }
 }
 
-/* Стили для средних десктопов (экраны шире 992px) */
+/* Ноутбуки (≥992px) */
 @media (min-width: 992px) {
   .container {
     max-width: 960px;
   }
 }
 
-/* Стили для больших десктопов (экраны шире 1200px) */
+/* Большие десктопы (≥1200px) */
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;

@@ -1,9 +1,12 @@
 import logo from './img/logo.png'
-import city from './img/city.svg'
-import temp from './img/temp.svg'
-import pressure from './img/pressure.svg'
-import precipitation from './img/precipitation.svg'
-import wind from './img/wind.svg'
+import city from './img/city.png'
+import temp from './img/temp.png'
+import pressure from './img/pressure.png'
+import precipitation from './img/precipitation.png'
+import wind from './img/wind.png'
+import humidity from './img/humidity.png'
+import uvi from './img/uvi.png'
+import sunrise from './img/sunrise.png'
 
 import sun from './img/sun.svg'
 import cloudy from './img/cloudy.svg'
@@ -21,7 +24,11 @@ export const images = {
   temp,
   pressure,
   precipitation,
-  wind
+  wind,
+  humidity,
+  uvi,
+  sunrise,
+
 }
 
 export const icons = {

@@ -20,7 +20,7 @@ async (cityInfo, thunkAPI)=>{
   try{
     const {key} = getState().weather
     const {local_names, lat, lon} = cityInfo
-    const response = await axios.get(`https://api.openweathermap.org/data/2.8/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=metric&lang=ru&appid=${key}`)
+    const response = await axios.get(`https://api.openweathermap.org/data/2.8/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=metric&lang=ru&appid=${key}`)
     const weatherObj = {...response.data, name:local_names.ru}
     return weatherObj
 
@@ -56,6 +56,7 @@ export const weatherSlice = createSlice({
     } )
     builder.addCase(getWeather.fulfilled, (state, action) => {
       state.weather = action.payload
+      console.log(state.weather);
     } )
     builder.addCase(getWeather.rejected, (state, action) => {
       state.isError = action.payload.message

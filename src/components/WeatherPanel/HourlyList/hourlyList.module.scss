@@ -1,0 +1,119 @@
+/* === Контейнер всего блока === */
+.hourlyList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--surface-container);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--on-surface);
+    margin: 0;
+}
+
+/* === Контейнер для прокрутки === */
+.scrollContainer {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+
+    -webkit-overflow-scrolling: touch;
+
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &:hover::-webkit-scrollbar {
+        display: block;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--surface-container-highest);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--on-surface-variant);
+        border-radius: 10px;
+
+        &:hover {
+            background: var(--primary);
+        }
+    }
+}
+
+/* === Карточка для одного часа (HourlyItem) === */
+.hourlyItem {
+    scroll-snap-align: start;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 16px 12px;
+    border-radius: 16px;
+    background-color: var(--surface-container-high);
+    min-width: 80px;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+        background-color: var(--surface-container-highest);
+    }
+}
+
+.time {
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    font-weight: 400;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+}
+
+.temp {
+    font-size: 1.1rem;
+    color: var(--on-surface);
+    font-weight: 500;
+}
+
+.popContainer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+}
+
+.pop {
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* === АДАПТАЦИЯ === */
+@media (max-width: 768px) {
+    .hourlyList {
+        padding: 20px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hourlyList {
+        padding: 16px;
+    }
+
+    .scrollContainer::-webkit-scrollbar {
+        height: 4px;
+    }
+}

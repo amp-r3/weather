@@ -1,11 +1,29 @@
 export default function getTime(dt, type) {
     const milsec = dt * 1000
     const currentDate = new Date(milsec)
-    const result = 
-    type == 'hours' ? currentDate.getHours() : 
-    type == 'min' ? currentDate.getMinutes() : 
-    type == 'weekday' ? currentDate.toLocaleDateString('ru-RU', {weekday: 'short'}) :
-    type == 'month' ? currentDate.toLocaleDateString('ru-RU', {month: 'short'}) : 
-    type == 'day' ? currentDate.toLocaleDateString('ru-RU', {day: 'numeric'}) : ''
+
+    let result = ''
+
+    switch (type) {
+        case 'hours':
+            result = String(currentDate.getHours()).padStart(2, '0')
+            break;
+        case 'min':
+            result = String(currentDate.getMinutes()).padStart(2, '0')
+            break;
+        case 'weekday':
+            result = currentDate.toLocaleDateString('ru-RU', { weekday: 'short' })
+            break;
+        case 'month':
+            result = currentDate.toLocaleDateString('ru-RU', { month: 'short' })
+            break;
+        case 'day':
+            result = String(currentDate.getDate()).padStart(2, '0')
+            break;
+        default:
+            result = ''
+            break;
+    }
+
     return result
 }

@@ -1,134 +1,142 @@
+/* --- Основной контейнер --- */
 .daily {
-    padding: 50px 0;
+    padding: 40px 0;
+    position: relative;
+}
 
-    &__nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 7px;
+/* --- Навигация (Кнопки) --- */
+.daily__nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.daily__btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 20px;
+    background-color: var(--surface-container-highest);
+    color: var(--on-surface-variant);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0 2px 8px var(--shadow-color);
+        background-color: var(--surface-container-highest);
     }
-
-    &__btn {
-        box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
-        border-radius: 5px;
-        padding: 7px 20px;
-        font-size: 18px;
-        transition: 0.3s ease-in-out;
-
-        &:hover,
-        &.active {
-            background: #4793ff;
-            color: #fff;
-        }
-    }
-
-    &__content {
-        box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
-        border-radius: 0 0 20px 20px;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 20px;
-        transition: 0.3s ease-in-out;
-        transform-origin: 0 0;
-
-        &.active {
-            transform: scaleY(0);
-        }
-    }
-
-    &__item {
-        background: rgba(71, 147, 255, 0.2);
-        border-radius: 10px;
-        padding: 11px;
-        transition: 0.3s ease-in-out;
-        &:hover {
-            box-shadow: 0 3px 20px 0 rgba(147, 144, 144, 0.28);
-            transform: scale(1.03);
-        }
-    }
-
-    &__title {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 5px;
-    }
-
-    &__date {
-        font-size: 14px;
-        color: #939cb0;
-        margin-bottom: 12px;
-    }
-
-    &__icon {
-        height: 45px;
-        width: 44px;
-        object-fit: contain;
-        margin-bottom: 15px;
-    }
-
-    &__day {
-        font-size: 18px;
-        font-weight: 500;
-    }
-
-    &__night,
-    &__desc {
-        font-size: 13px;
-        color: #939cb0;
-        margin-bottom: 6px;
-    }
-
-    &__desc {
-        margin-bottom: 0;
+    
+    &.active {
+        background-color: var(--primary);
+        color: #fff;
+        box-shadow: 0 4px 12px -2px var(--primary);
     }
 }
 
-/* --- Медиа-запросы для адаптации --- */
+/* --- Контейнер с карточками прогноза --- */
+.daily__content {
+    background: var(--surface-container);
+    border-radius: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+    
+    overflow: hidden;
+    max-height: 1000px;
+    opacity: 1;
+    transform-origin: top;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, padding 0.5s ease-in-out, transform 0.5s ease-in-out;
+    
+    /* Состояние, когда контент скрыт */
+    &.active {
+        max-height: 0;
+        opacity: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        transform: scaleY(0.95);
+    }
+}
+
+/* --- Карточка одного дня --- */
+.daily__item {
+    background: var(--surface-container-highest);
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 20px var(--shadow-color);
+    }
+}
+
+.daily__title {
+    font-size: 1.125rem; // 18px
+    font-weight: 500;
+    color: var(--on-surface);
+    margin-bottom: 4px;
+}
+
+.daily__date {
+    font-size: 0.875rem; // 14px
+    color: var(--on-surface-variant);
+    margin-bottom: 12px;
+}
+
+.daily__icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.daily__day {
+    font-size: 1.25rem; // 20px
+    font-weight: 500;
+    color: var(--on-surface);
+}
+
+.daily__night {
+    font-size: 1rem; // 16px
+    color: var(--on-surface-variant);
+    margin-bottom: 8px;
+}
+
+.daily__desc {
+    font-size: 0.875rem; // 14px
+    color: var(--on-surface-variant);
+}
+
+/* === АДАПТАЦИЯ === */
 @media (max-width: 992px) {
   .daily__content {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-// Для планшетов
 @media (max-width: 768px) {
   .daily__content {
     grid-template-columns: repeat(3, 1fr);
   }
-  
-  .daily__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
 }
 
-// Для мобильных устройств
 @media (max-width: 576px) {
   .daily {
     padding: 30px 0;
   }
-
-  .daily__nav {
-    justify-content: center;
-    gap: 15px;
-  }
-
-  .daily__btn {
-    font-size: 16px;
-    padding: 6px 18px;
-  }
-
   .daily__content {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
+  .daily__nav {
+    justify-content: center;
+  }
 }
 
-// Для очень маленьких экранов
-@media (max-width: 400px) {
+@media (max-width: 340px) {
   .daily__content {
     grid-template-columns: 1fr;
   }
