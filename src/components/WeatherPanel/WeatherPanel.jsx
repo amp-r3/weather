@@ -7,7 +7,7 @@ import HourlyList from './HourlyList/HourlyList';
 const WeatherPanel = () => {
 
     const { daily, name, current, hourly } = useSelector((state) => state.weather.weather);
-    
+
   return (
     <section className={s.weatherPanel}> 
         <div className={s.leftColumn}>

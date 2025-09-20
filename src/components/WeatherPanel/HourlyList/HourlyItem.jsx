@@ -11,7 +11,7 @@ const HourlyItem = ({ hour }) => {
             <p className={s.temp}>{Math.round(hour.temp)}°</p>
             {hour.pop > 0 && (
                 <div className={s.popContainer}>
-                    <img src={images.precipitation} alt="precipitation" />
+                    <img className={s.popIcon} src={images.precipitation} alt="precipitation" />
                     <p className={s.pop}>{Math.round(hour.pop * 100)}%</p>
                 </div>
             )}
