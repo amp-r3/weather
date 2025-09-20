@@ -22,8 +22,7 @@ const App = () => {
             <Daily />
           </>
           :
-          isError ? <h1>{isError}</h1> :
-            <Loader />
+          isError ? <h1>{isError}</h1> :  <Loader />
       }
     </div>
   )

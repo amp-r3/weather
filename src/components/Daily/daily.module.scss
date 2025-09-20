@@ -28,7 +28,7 @@
     
     &.active {
         background-color: var(--primary);
-        color: #fff;
+        color: var(--on-primary);
         box-shadow: 0 4px 12px -2px var(--primary);
     }
 }
