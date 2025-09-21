@@ -5,7 +5,7 @@ export const getLocation = createAsyncThunk(
   'IPGeo/getLocation',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios('http://ip-api.com/json/');
+      const response = await axios('https://ipapi.co/json/');
       console.log(response.data);
       return response.data;
     } catch (error) {
