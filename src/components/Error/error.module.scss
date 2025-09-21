@@ -1,0 +1,86 @@
+.errorWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80dvh; 
+    padding: 20px;
+}
+
+.errorCard {
+    background-color: var(--surface-container);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px var(--shadow-color);
+    }
+}
+
+.errorTitle {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--on-surface);
+    margin-bottom: 12px;
+}
+
+.errorMessage {
+    font-size: 1rem;
+    color: var(--on-surface-variant);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.retryButton {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+/* === АДАПТАЦИЯ === */
+
+/* Планшеты (≤768px) */
+@media (max-width: 768px) {
+    .errorCard {
+        padding: 28px;
+        border-radius: 16px;
+    }
+}
+
+/* Мобильные устройства (≤480px) */
+@media (max-width: 480px) {
+    .errorCard {
+        padding: 24px 20px;
+    }
+
+    .errorTitle {
+        font-size: 1.25rem;
+    }
+
+    .errorMessage {
+        font-size: 0.9rem;
+    }
+
+    .retryButton {
+        width: 100%;
+        padding: 14px;
+    }
+}
