@@ -1,7 +1,7 @@
 import HourlyItem from './HourlyItem';
 import s from './hourlyList.module.scss';
 
-const HourlyList = ({ hourly }) => {
+const HourlyList = ({ hourly, timezoneOffset }) => {
   const next24Hours = hourly.slice(0, 24);
 
   return (
@@ -9,7 +9,7 @@ const HourlyList = ({ hourly }) => {
       <h3 className={s.title}>Прогноз по часам</h3>
       <div className={s.scrollContainer}>
         {next24Hours.map((hour) => (
-          <HourlyItem key={hour.dt} hour={hour} />
+          <HourlyItem key={hour.dt} hour={hour} timezoneOffset={timezoneOffset} />
         ))}
       </div>
     </div>

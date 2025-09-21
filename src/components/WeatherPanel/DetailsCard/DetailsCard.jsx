@@ -4,7 +4,7 @@ import getTime from '../../../utils/getTime';
 import { images } from '../../../assets/image';
 import s from './detailsCard.module.scss';
 
-const DetailsCard = ({ daily }) => {
+const DetailsCard = ({ daily, timezoneOffset }) => {
     const today = daily[0];
     return (
         <div className={s.detailsCard}>
@@ -53,7 +53,7 @@ const DetailsCard = ({ daily }) => {
                 <div className={s.itemIcon}><img src={images.sunrise} alt="Sunrise/Sunset" /></div>
                 <p className={s.itemName}>Восход / Закат</p>
                 <p className={s.itemDesc}>
-                    {getTime(today.sunrise, 'hours')}:{getTime(today.sunrise, 'min')} / {getTime(today.sunset, 'hours')}:{getTime(today.sunset, 'min')}
+                    {getTime(today.sunrise, timezoneOffset, 'hours')}:{getTime(today.sunrise, timezoneOffset, 'min')} / {getTime(today.sunset, timezoneOffset, 'hours')}:{getTime(today.sunset, timezoneOffset, 'min')}
                 </p>
             </div>
         </div>

@@ -7,17 +7,17 @@ const Daily = () => {
 
     const [show, setShow] = useState(true)
 
-    const { daily } = useSelector((state) => state.weather.weather)
+    const { daily, timezone_offset } = useSelector((state) => state.weather.weather)
     return (
         <div className={s.daily}>
             <div className={s.daily__nav}>
                 <button onClick={()=>{setShow(true)}} className={`${s.daily__btn} ${ show ? s.active : ''} `}>На неделю</button>
-                <button onClick={()=>{setShow(false)}} className={`${s.daily__btn} ${ !show ? s.active : ''} `}>Отменить</button>
+                <button onClick={()=>{setShow(false)}} className={`${s.daily__btn} ${ !show ? s.active : ''} `}>Скрыть</button>
             </div>
             <div className={`${s.daily__content} ${!show ? s.active : ''}`}>
                 {
                     daily.map((elem, index) => (
-                        <DailyItem day={elem} key={elem.dt} index={index} />
+                        <DailyItem day={elem} key={elem.dt} index={index} timezoneOffset={timezone_offset} />
                     )).slice(0, 7)
                 }
             </div>

@@ -2,7 +2,7 @@ import s from './nowCard.module.scss';
 import getTime from '../../../utils/getTime';
 import { icons } from '../../../assets/image';
 
-const NowCard = ({ daily, name, current }) => {
+const NowCard = ({ daily, name, current, timezoneOffset}) => {
     const today = daily[0];
     const iconNum = parseInt(today.weather[0].icon); 
 
@@ -22,7 +22,7 @@ const NowCard = ({ daily, name, current }) => {
             {/* Нижняя часть с временем и городом */}
             <div className={s.bottomInfo}>
                  <p className={s.time}>
-                    Время: {getTime(current.dt, 'hours')}:{getTime(current.dt, 'min')}
+                    Время: {getTime(current.dt, timezoneOffset, 'hours')}:{getTime(current.dt, timezoneOffset, 'min')}
                 </p>
                 <p className={s.city}>Город: {name}</p>
             </div>

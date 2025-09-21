@@ -1,4 +1,3 @@
-/* --- Стиль для карточки текущей погоды --- */
 .nowCard {
     display: flex;
     flex-direction: column;
@@ -32,10 +31,11 @@
 }
 
 .degree {
-    font-size: clamp(1.5rem, 7vw, 2.5rem);
+    font-size: clamp(4rem, 7vw, 2.5rem);
     font-weight: 500;
     color: var(--primary);
     line-height: 1;
+    margin-bottom: 14px;
 }
 
 .day {
@@ -59,7 +59,6 @@
 /* --- Нижняя информация: время и город --- */
 .bottomInfo {
     margin-top: auto;
-    /* Эффективно прижимает блок к низу */
     padding-top: 20px;
 }
 
@@ -68,7 +67,6 @@
     font-size: 1.25rem;
     color: var(--on-surface-variant);
     word-break: break-word;
-    /* Для переноса длинных названий городов */
 }
 
 .city {
@@ -114,7 +112,6 @@
     .nowCard {
         padding: 16px;
         min-height: unset;
-        /* Убираем мин. высоту, пусть контент определяет */
     }
 
     .degree {

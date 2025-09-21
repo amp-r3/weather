@@ -6,15 +6,15 @@ import HourlyList from './HourlyList/HourlyList';
 
 const WeatherPanel = () => {
 
-    const { daily, name, current, hourly } = useSelector((state) => state.weather.weather);
+    const { daily, name, current, hourly, timezone_offset } = useSelector((state) => state.weather.weather);
 
   return (
     <section className={s.weatherPanel}> 
         <div className={s.leftColumn}>
-          <NowCard daily={daily} name={name} current={current}/>
-          <HourlyList hourly={hourly}/>
+          <NowCard daily={daily} name={name} current={current} timezoneOffset={timezone_offset}/>
+          <HourlyList hourly={hourly} timezoneOffset={timezone_offset}/>
         </div>
-        <DetailsCard daily={daily}/>
+        <DetailsCard daily={daily} timezoneOffset={timezone_offset}/>
     </section>
   )
 }

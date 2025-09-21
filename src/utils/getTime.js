@@ -1,29 +1,34 @@
-export default function getTime(dt, type) {
-    const milsec = dt * 1000
-    const currentDate = new Date(milsec)
+export default function getTime(dt, offset, type) {
+    const targetDate = new Date((dt + offset) * 1000);
 
-    let result = ''
+    let result = '';
+
+    const formatter = (options) => new Intl.DateTimeFormat('ru-RU', {
+        ...options,
+        timeZone: 'UTC'
+    }).format(targetDate);
+
 
     switch (type) {
         case 'hours':
-            result = String(currentDate.getHours()).padStart(2, '0')
+            result = String(targetDate.getUTCHours()).padStart(2, '0');
             break;
         case 'min':
-            result = String(currentDate.getMinutes()).padStart(2, '0')
+            result = String(targetDate.getUTCMinutes()).padStart(2, '0');
             break;
         case 'weekday':
-            result = currentDate.toLocaleDateString('ru-RU', { weekday: 'short' })
+            result = formatter({ weekday: 'short' });
             break;
         case 'month':
-            result = currentDate.toLocaleDateString('ru-RU', { month: 'short' })
+            result = formatter({ month: 'short' });
             break;
         case 'day':
-            result = String(currentDate.getDate()).padStart(2, '0')
+            result = String(targetDate.getUTCDate()).padStart(2, '0');
             break;
         default:
-            result = ''
+            result = '';
             break;
     }
 
-    return result
+    return result;
 }
