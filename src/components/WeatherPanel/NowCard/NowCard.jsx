@@ -1,21 +1,21 @@
 import s from './nowCard.module.scss';
 import getTime from '../../../utils/getTime';
-import { icons } from '../../../assets/image';
+import { weatherIcons } from '../../../assets/image';
 
-const NowCard = ({ daily, name, current, timezoneOffset}) => {
-    const today = daily[0];
-    const iconNum = parseInt(today.weather[0].icon); 
+const NowCard = ({ name, current, timezoneOffset, hourly}) => {
+    const now = hourly[0]
+    const iconNum = now.weather[0].icon; 
 
     return (
         <div className={s.nowCard}>
             {/* Верхний ряд с температурой и иконкой */}
             <div className={s.topRow}>
                 <div className={s.tempWrapper}>
-                    <p className={s.degree}>{Math.round(today.temp.day)}°</p>
-                    <p className={s.day}>Сегодня</p>
+                    <p className={s.degree}>{Math.round(now.temp)}°</p>
+                    <p className={s.day}>Сейчас</p>
                 </div>
                 <div className={s.weatherIconWrapper}>
-                    <img src={icons[iconNum]} alt="weather icon" className={s.weatherIcon} />
+                    <img src={weatherIcons[iconNum]} alt="weather icon" className={s.weatherIcon} />
                 </div>
             </div>
 

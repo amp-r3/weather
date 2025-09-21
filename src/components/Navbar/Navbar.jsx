@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { images } from '../../assets/image';
+import { uiIcons } from '../../assets/image';
 import s from './navbar.module.scss';
 import { useDispatch } from "react-redux";
 import { getLanLon } from "../../store/features/weather.js";
@@ -25,7 +25,7 @@ const Navbar = () => {
     return (
         <header className={s.header}>
             <a href="/" className={s.logo}>
-                <img src={images.logo} alt="Weather App Logo" />
+                <img src={uiIcons.logo} alt="Weather App Logo" />
                 <span>Vue Weather</span>
             </a>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                     )}
                 </div>
                 <button onClick={toggleTheme} className={`${s.icon_btn} ${s.theme_switcher}`} aria-label="Toggle theme">
-                    <img src={images.city} alt="Change theme" />
+                    <img src={uiIcons.city} alt="Change theme" />
                 </button>
             </div>
         </header>

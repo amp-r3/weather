@@ -11,7 +11,7 @@ const WeatherPanel = () => {
   return (
     <section className={s.weatherPanel}> 
         <div className={s.leftColumn}>
-          <NowCard daily={daily} name={name} current={current} timezoneOffset={timezone_offset}/>
+          <NowCard name={name} current={current} timezoneOffset={timezone_offset} hourly={hourly}/>
           <HourlyList hourly={hourly} timezoneOffset={timezone_offset}/>
         </div>
         <DetailsCard daily={daily} timezoneOffset={timezone_offset}/>
