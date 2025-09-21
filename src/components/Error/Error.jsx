@@ -6,7 +6,7 @@ const Error = ({ message }) => {
     const dispatch = useDispatch();
 
     const handleRetry = () => {
-        dispatch(getLanLon('Almalyk'));
+        dispatch(getLanLon('Rom'));
     };
 
     return (

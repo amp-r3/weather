@@ -26,7 +26,7 @@ const Navbar = () => {
         <header className={s.header}>
             <a href="/" className={s.logo}>
                 <img src={uiIcons.logo} alt="Weather App Logo" />
-                <span>Vue Weather</span>
+                <span>My Weather</span>
             </a>
 
             <div className={s.controls}>
