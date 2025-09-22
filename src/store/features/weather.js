@@ -27,12 +27,20 @@ export const getLanLon = createAsyncThunk('weather/getLanLon',
 
 export const getWeatherByCoords = createAsyncThunk(
   'weather/getWeatherByCoords',
-  async ({ lat, lon }, { rejectWithValue }) => {
+  async ({ lat, lon }, { getState, rejectWithValue }) => {
+
+    const cacheKey = `${lat.toFixed(4)}:${lon.toFixed(4)}`
+
+    const cachedData = getState().weather.cache[cacheKey]
+    if (cachedData) {
+      return cachedData
+    }
+
     try {
       const getCity = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&lang=ru&apiKey=${geoKey}`);
       const getWeather = await axios.get(`https://api.openweathermap.org/data/2.8/onecall?lat=${lat}&lon=${lon}&exclude=alerts&units=metric&lang=ru&appid=${weatherKey}`)
       const props = getCity.data?.features?.[0]?.properties || {};
-      const cityName =  props.city || props.town || props.village || props.locality || props.county || props.state || props.formatted || null;
+      const cityName = props.city || props.town || props.village || props.locality || props.county || props.state || props.formatted || null;
       const weatherObj = { ...getWeather.data, name: cityName }
       return weatherObj
     } catch (error) {
@@ -57,11 +65,24 @@ const getWeather = createAsyncThunk('weather/getWeather',
     }
   }
 )
+
+const loadCacheFromStorage = () => {
+  try {
+    const serializedCache = localStorage.getItem('weatherCache');
+    if (serializedCache === null) {
+      return {};
+    }
+    return JSON.parse(serializedCache);
+  } catch (error) {
+    console.warn('Невозможно загрузить кеш из локального хранилища', error);
+    return {}
+  }
+}
 const initialState = {
   weather: null,
   isLoading: false,
   isError: null,
-
+  cache: loadCacheFromStorage(),
 }
 
 export const weatherSlice = createSlice({
@@ -69,42 +90,46 @@ export const weatherSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // оброботчик для getLanLon
-    builder.addCase(getLanLon.pending, (state) => {
-      state.isError = false
-    })
-    builder.addCase(getLanLon.rejected, (state, action) => {
-      state.isError = action.payload
-    })
-    builder.addCase(getLanLon.fulfilled, (state) => {
-      state.isError = false
-    })
-    // оброботчик для getWeather
-    builder.addCase(getWeather.pending, (state) => {
-      state.isError = false
-      state.isLoading = true
-    })
-    builder.addCase(getWeather.fulfilled, (state, action) => {
-      state.weather = action.payload
-      state.isLoading = false
-    })
-    builder.addCase(getWeather.rejected, (state, action) => {
-      state.isError = action.payload
-      state.isLoading = false
-    })
-    // оброботчик для getWeatherByCoords
-    builder.addCase(getWeatherByCoords.pending, (state) => {
-      state.isError = false
-      state.isLoading = true
-    })
-    builder.addCase(getWeatherByCoords.fulfilled, (state, action) => {
-      state.weather = action.payload
-      state.isLoading = false
-    })
-    builder.addCase(getWeatherByCoords.rejected, (state, action) => {
-      state.isError = action.payload
-      state.isLoading = false
-    })
+    builder
+      .addCase(getWeather.fulfilled, (state, action) => {
+        state.weather = action.payload;
+      })
+      .addCase(getWeatherByCoords.fulfilled, (state, action) => {
+        const { lat, lon } = action.meta.arg;
+        const cacheKey = `${lat.toFixed(4)}:${lon.toFixed(4)}`;
+
+        state.weather = action.payload;
+        state.cache[cacheKey] = action.payload;
+
+        try {
+          const serializedCache = JSON.stringify(state.cache);
+          localStorage.setItem('weatherCache', serializedCache);
+        } catch (error) {
+          console.warn('Невозможно сохранить кеш в локальное хранилище', error);
+        }
+      })
+
+      // Общие обработчики для всех thunk'ов
+      .addMatcher(
+        (action) => action.type.endsWith('/pending'),
+        (state) => {
+          state.isLoading = true;
+          state.isError = null;
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/fulfilled'),
+        (state) => {
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/rejected'),
+        (state, action) => {
+          state.isLoading = false;
+          state.isError = action.payload || action.error.message;
+        }
+      );
   }
 })
 
