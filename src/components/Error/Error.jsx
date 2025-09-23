@@ -1,12 +1,18 @@
 import s from './error.module.scss';
-import { useDispatch } from 'react-redux';
-import { getLanLon } from '../../store/features/weather';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLanLon, getWeatherByCoords } from '../../store/features/weather';
 
 const Error = ({ message }) => {
+    const { location } = useSelector((state) => state.IPGeo)
     const dispatch = useDispatch();
 
     const handleRetry = () => {
-        dispatch(getLanLon('Rom'));
+        if (location.lat && location.lon) {
+            dispatch(getWeatherByCoords({ lat: location.lat, lon: location.lon }));
+        }
+        else if (location.city) {
+            dispatch(getLanLon(location.city));
+        }
     };
 
     return (
@@ -14,7 +20,7 @@ const Error = ({ message }) => {
             <div className={s.errorCard}>
                 <h2 className={s.errorTitle}>Что-то пошло не так</h2>
                 <p className={s.errorMessage}>
-                    {message.includes('404')
+                    {message.includes('Город не найден')
                         ? 'Город не найден. Пожалуйста, проверьте правильность написания.'
                         : 'Не удалось загрузить данные. Проверьте ваше интернет-соединение.'
                     }

@@ -30,10 +30,10 @@ export const getWeatherByCoords = createAsyncThunk(
   async ({ lat, lon }, { getState, rejectWithValue }) => {
 
     const cacheKey = `${lat.toFixed(4)}:${lon.toFixed(4)}`
-
-    const cachedData = getState().weather.cache[cacheKey]
-    if (cachedData) {
-      return cachedData
+    const cachedEntry = getState().weather.cache[cacheKey]
+    // Проверка, есть ли запись в кеше и не старше ли она 60 секунд
+    if (cachedEntry && (Date.now() - cachedEntry.timestamp < 60000)) {
+      return cachedEntry.data
     }
 
     try {
@@ -99,7 +99,10 @@ export const weatherSlice = createSlice({
         const cacheKey = `${lat.toFixed(4)}:${lon.toFixed(4)}`;
 
         state.weather = action.payload;
-        state.cache[cacheKey] = action.payload;
+        state.cache[cacheKey] = {
+          data: action.payload,
+          timestamp: Date.now()
+        }
 
         try {
           const serializedCache = JSON.stringify(state.cache);
